@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=
+comment0.target=EnemyEncounter()
+comment1.params=amount
+comment1.target=void\ generateEncounter(int)
+comment2.params=
+comment2.target=int\ getHealth()
+comment3.params=
+comment3.target=int\ getDamage()
+comment4.params=
+comment4.target=java.lang.String\ getMonsterName()
+comment5.params=newHealth
+comment5.target=void\ setHealth(int)
+comment6.params=newDamage
+comment6.target=void\ setDamage(int)
+comment7.params=newName
+comment7.target=void\ setMonsterName(java.lang.String)
+numComments=8

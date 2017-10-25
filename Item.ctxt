@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=itemName\ newDamage\ isWeaponIn\ isThrowableIn\ isConsumableIn\ durabilityIn
+comment0.target=Item(java.lang.String,\ int,\ boolean,\ boolean,\ boolean,\ int)
+comment1.params=
+comment1.target=int\ getID()
+comment2.params=
+comment2.target=Item()
+comment3.params=
+comment3.target=java.lang.String\ getName()
+comment4.params=
+comment4.target=int\ getDamage()
+comment5.params=
+comment5.target=java.lang.String\ getItemUse()
+comment6.params=
+comment6.target=int\ getDurability()
+comment7.params=durabilityIn
+comment7.target=void\ setDurability(int)
+comment8.params=typeIn
+comment8.target=java.lang.String\ getValue(java.lang.String)
+comment9.params=
+comment9.target=java.lang.String\ toString()
+numComments=10

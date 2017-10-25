@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CreateLoot()
+comment1.params=tier\ lootType
+comment1.target=void\ generateLoot(int,\ java.lang.String)
+comment2.params=
+comment2.target=void\ invInspect()
+numComments=3
