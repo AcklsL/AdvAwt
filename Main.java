@@ -12,7 +12,9 @@ public class Main extends Canvas implements Runnable{
     private static CreateLoot lootgenerate = new CreateLoot();
     public static Utility util =  new Utility();
     private JTextArea text;
+    private JFrame frame = new JFrame("Adventures Await");
     private JTextField textField = new JTextField();
+    private JLayeredPane layer = new JLayeredPane();
     private String userInput;
     private boolean hasInputted;
     private boolean needInput;
@@ -23,11 +25,10 @@ public class Main extends Canvas implements Runnable{
     private static boolean running;
     public static Main instance;
     public Main(){
-        JFrame frame = new JFrame("Adventures Await");
         JPanel panel = new JPanel();
         text = new JTextArea();
         JScrollPane sp = new JScrollPane(text,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        
+        init();
         Container c = frame.getContentPane();
         
         frame.setSize(600,600);
@@ -35,23 +36,28 @@ public class Main extends Canvas implements Runnable{
         //frame.setLayout(null);
         frame.setResizable(false);
         
+        layer.setPreferredSize(new Dimension(600,500));
+        layer.add(panel,1);
+        layer.add(textField,2);
+        
         textField.setFocusable(true);
         textField.setBackground(new Color(242,242,242));
         textField.setSize(600, 30);
         textField.setLocation(0, 550);
         
-        text.setSize(600, 550);
+        text.setSize(0, 0);
         text.setEditable(false);
         
         sp.createVerticalScrollBar();
-        sp.add(text);
+        sp.add(textField);
+        sp.getVerticalScrollBar().setUnitIncrement(15);
         System.out.println(sp.getVerticalScrollBar());
         
         thread = new Thread(this);
         instance = this;
         System.out.println("started");
         
-
+        textField.addFocusListener(new FocusListener() {public void focusLost(FocusEvent e) {textField.requestFocus();}public void focusGained(FocusEvent e) {}});
         textField.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {}});
         textField.addKeyListener(new KeyListener() {
             public void keyReleased(KeyEvent e) {
@@ -61,6 +67,7 @@ public class Main extends Canvas implements Runnable{
                 
                 //Enter Key
                 if (e.getKeyCode() == 10){
+                    layer.setLayer(textField, 5);
                     needInput = false;
                     hasInputted = true;
                     userInput = textField.getText();
@@ -69,12 +76,12 @@ public class Main extends Canvas implements Runnable{
             public void keyTyped(KeyEvent e){
             }
         });
+        frame.addWindowListener(new WindowAdapter() {public void windowOpened( WindowEvent e ){textField.requestFocus();}}); 
+        
         
         c.add(textField);
         c.add(sp);
         
-
-        frame.setVisible(true);
 
         Scanner input = new Scanner(System.in);
         Random generate = new Random();
@@ -104,6 +111,9 @@ public class Main extends Canvas implements Runnable{
     }
     public void writenl(String text1) {
         text.append(text1);
+    }
+    public final void init(){
+        frame.setVisible(true);
     }
     public void writeGI(String text) {
        this.text.append(text + "\n");
