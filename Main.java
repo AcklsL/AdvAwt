@@ -36,9 +36,6 @@ public class Main extends Canvas implements Runnable{
         //frame.setLayout(null);
         frame.setResizable(false);
         
-        layer.setPreferredSize(new Dimension(600,500));
-        layer.add(panel,1);
-        layer.add(textField,2);
         
         textField.setFocusable(true);
         textField.setBackground(new Color(242,242,242));
