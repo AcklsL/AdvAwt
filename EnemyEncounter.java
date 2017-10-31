@@ -14,11 +14,12 @@ public class EnemyEncounter{
         enemyHealth = generate.nextInt(100)+30;
     }
 
-    public void generateEncounter(int amount){
+    public void generateEncounter(int amount,String inter){
         CombatSystem combat = new CombatSystem();
         for (int i  = 0; i < amount; i++){
             combat.beginCombatNormal("normal");
         }
+        Main.instance.write(inter);
     }
     
     public int getHealth(){

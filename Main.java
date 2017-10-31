@@ -31,7 +31,7 @@ public class Main extends Canvas implements Runnable{
         init();
         Container c = frame.getContentPane();
         
-        frame.setSize(600,600);
+        frame.setSize(700,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setLayout(null);
         frame.setResizable(false);
@@ -39,7 +39,7 @@ public class Main extends Canvas implements Runnable{
         
         textField.setFocusable(true);
         textField.setBackground(new Color(242,242,242));
-        textField.setSize(600, 30);
+        textField.setSize(700, 30);
         textField.setLocation(0, 550);
         
         text.setSize(0, 0);
@@ -95,14 +95,62 @@ public class Main extends Canvas implements Runnable{
         character.setName(getInput());
         write("You, " + character.getName() + ", are here to venture into this new world.");
         write("You travel with your grand sword, Excalibro, dealing " + inventory.getItemStat("damage",0) + " damage.");
-        write("You travel to destroy the evil enemy, Jimmy bean. Your travels have been in vain until...");
-        enemy.generateEncounter(1);
+        write("You travel to destroy the evil enemy, Jimmy bean. Your travels have been in vain until your home town");
+        write("of Gramblestag has been attacked. You rush back home to find monsters everywhere. What will you do?");
+        choice1();
+        }
+    public void choice1(){
+        writeGI("Charge/Sneak: ");
+        String choice1 = getInput();
+        if (choice1.equalsIgnoreCase("charge")){
+            Main.instance.write("You rush in to the fight. Your excalibro senses this and increases it's attack damage.");
+            inventory.getItem(0).setDamage(inventory.getItem(0).getDamage() + 5);
+            enemy.generateEncounter(2,"It's not over yet!");
+        } else if (choice1.equalsIgnoreCase("sneak")){
+            Main.instance.write("You try and sneak behind some trees and approach them slowly. You're able to");
+            Main.instance.write("take one out before you are seen. They turn around and begin charging at you");
+            Main.instance.write("before you can run away.");
+            enemy.generateEncounter(1,"");
+        } else {
+            write("What?");
+            choice1();
+        }
+        Main.instance.write("\nYou pick up some items from the enemies.");
         lootgenerate.generateLoot(1,"consumable");
         lootgenerate.generateLoot(1,"weapon");
-        shop.generateShop("wandering merchant");
-        enemy.generateEncounter(1);
+        Main.instance.write("The enemies still run rampant in your home town. Though you have little");
+        Main.instance.write("recollection of your past, you must be just and try to save the town.");
+        Main.instance.write("Running in would have you killed for sure, so you must think of another way of");
+        Main.instance.write("saving the town. You see some things nearby that might help. What do you do?");
+        Main.instance.write("(1) Scream, attracting the attention of all the enemies. \n(2) Take them out on by one, quietly");
+        Main.instance.write("(3) Charge in. Strategy is for cowards.\n(4) Burn the village. There isn't anything here for me anyways.");
+        Main.instance.writeGI("");
+        String choice2 = getInput();
+        if (choice2.equalsIgnoreCase("1")) {
+            Main.instance.write("Enemies charge at you seeing you not as an enemy, but as food.");
+            Main.instance.write("Your valiant action has lead to allies that were once being attacked to rush to your side.");
+            Main.instance.write("Though they may be weak, their will to fight is strong. They won't last long though, and they're determined to help you.");
+            character.addAlly(new Allies(5,9,"Weak farmer",1000));
+        } else if (choice2.equalsIgnoreCase("2")) {
+            
+        } else if (choice2.equalsIgnoreCase("3")) {
+            Main.instance.write("\nYou may be a fool, but you are no coward.\n");
+            enemy.generateEncounter(5,"Theres another one coming!");
+            Main.instance.write("...");
+            Main.instance.write("You survived?");
+            Main.instance.write("I guess you deserve a reward... fit for a god.");
+            lootgenerate.generateLoot(4,"weapon");
+            for (int i = 0; i < 15; i++) {
+                lootgenerate.generateLoot(2,"consumable");
+            }
+            character.addToPath("c");
+        } else if (choice2.equalsIgnoreCase("4")) {
+            
         }
-    
+        
+        shop.generateShop("wandering merchant");
+        enemy.generateEncounter(1,"");
+    }
     public void write(String text1) {
         text.append(text1 + "\n");
     }
@@ -122,6 +170,9 @@ public class Main extends Canvas implements Runnable{
     }
     public String getInput(){
         return userInput;
+    }
+    public void kill(){
+        thread.interrupt();
     }
 
     @Override

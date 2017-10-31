@@ -46,6 +46,9 @@ public class Item{
    public int getDamage(){
        return damage;
    }
+   public void setDamage(int in){
+       damage = in;
+   }
    public String getItemUse(){
        return itemUse;
    }

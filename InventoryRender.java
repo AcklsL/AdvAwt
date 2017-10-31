@@ -15,6 +15,9 @@ public class InventoryRender{
     public ArrayList<Item> getItems(){
         return items;
     }
+    public Item getItem(int index){
+        return items.get(index);
+    }
     
     public void remove(int index){
         items.remove(index);

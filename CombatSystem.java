@@ -31,6 +31,11 @@ public class CombatSystem{
                      //Hard top, Normal bottom
         if (difficulty.equals(combatTypes[0])) {
             while (enemy.getHealth() > 0 && endFightAbrupt == false) {
+                if (character.getArrayAlly().isEmpty() == false) {
+                    Main.instance.write("Allies stand beside you.");
+                } else {
+                    Main.instance.write("You fight alone...");
+                }
                 Main.instance.write("What would you like to do?");
                 Main.instance.writeGI("Attack, Use Magic, Check Inventory, Run, Stats");
                 action = Main.instance.getInput();
@@ -50,7 +55,13 @@ public class CombatSystem{
                     Main.instance.write("What was that?");
                     skipEnemyAttack = true;
                 }
+                if (character.getHealth() < 1) {
+                    Main.instance.write("You have died.");
+                    Main.instance.kill();
+                    break;
+                }
                 if (skipEnemyAttack == false) {
+                    this.allyAttack();
                     this.enemyAttack();
                 } else {
                     skipEnemyAttack = false;
@@ -75,10 +86,18 @@ public class CombatSystem{
         }
     }
     
+    public void allyAttack(){
+        for (Allies i : character.getArrayAlly()) {
+            Main.instance.write(i.getName() + " attacks the enemy with all their might!");
+            Main.instance.write("They struck them for " + i.getDamage() + " damage!");
+            enemy.setHealth(enemy.getHealth() - i.getDamage());
+        }
+    }
+    
     public void attack(){
         String attackInput;
         Main.instance.write("What item would you like to attack with?: ");
-           // foreach vaule in a array or arraylist
+           // for each value in a array or arraylist
         for (Item i: render.getItems() ){
            if (i instanceof Weapon || i instanceof ThrowableItem) {
                Main.instance.write(i.getName() + "("+ i.getDurability() +")" + " - " + i.getDamage() + " damage");

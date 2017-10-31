@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 public class CharacterInfo{
     // instance variables - replace the example below with your own
     private String name;
@@ -7,6 +7,8 @@ public class CharacterInfo{
     private int mana;
     private int maxMana;
     private int money;
+    private String path;
+    private ArrayList<Allies> allies;
 
     public CharacterInfo(){
         // initialise instance variables
@@ -17,7 +19,31 @@ public class CharacterInfo{
         knowsMagic = false;
         money = 0;
     }
-
+    
+    public void addAlly(Allies i) {
+        allies.add(i);
+    }
+    public Allies getAlly(int index) {
+        return allies.get(index);
+    }
+    public ArrayList<Allies> getArrayAlly(){
+        return allies;
+    }
+    
+    public void addToPath(String in){
+        path = (path + in);
+    }
+    public char getPathAtIndex(int index){
+        char[] tpath = (path.toLowerCase()).toCharArray();
+        try{
+            return tpath[index];
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            System.err.print("Make sure the path selected has been added to path!"); 
+            return 'z';
+        }
+    }
+    
     public void setName(String newName){
         name = newName;
     }
