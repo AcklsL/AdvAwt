@@ -15,6 +15,7 @@ public class Main extends Canvas implements Runnable{
     private JFrame frame = new JFrame("Adventures Await");
     private JTextField textField = new JTextField();
     private JLayeredPane layer = new JLayeredPane();
+    //private JScrollPane sp = new JScrollPane(text,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     private String userInput;
     private boolean hasInputted;
     private boolean needInput;
@@ -60,8 +61,8 @@ public class Main extends Canvas implements Runnable{
             public void keyReleased(KeyEvent e) {
             }
             public void keyPressed(KeyEvent e){
-                System.out.println((e.getKeyCode()==10 )+ ", " + Integer.toString(e.getKeyCode()));
-                
+                System.out.println((e.getKeyCode()==10 )+ ", " + Integer.toString(e.getKeyCode()) + ", " + sp.getVerticalScrollBar().getValue());
+                sp.getVerticalScrollBar().setValue(sp.getVerticalScrollBar().getMaximum());
                 //Enter Key
                 if (e.getKeyCode() == 10){
                     layer.setLayer(textField, 5);
@@ -73,6 +74,7 @@ public class Main extends Canvas implements Runnable{
             public void keyTyped(KeyEvent e){
             }
         });
+        
         frame.addWindowListener(new WindowAdapter() {public void windowOpened( WindowEvent e ){textField.requestFocus();}}); 
         
         
@@ -99,6 +101,7 @@ public class Main extends Canvas implements Runnable{
         write("of Gramblestag has been attacked. You rush back home to find monsters everywhere. What will you do?");
         choice1();
         }
+        
     public void choice1(){
         writeGI("Charge/Sneak: ");
         String choice1 = getInput();
@@ -122,17 +125,38 @@ public class Main extends Canvas implements Runnable{
         Main.instance.write("recollection of your past, you must be just and try to save the town.");
         Main.instance.write("Running in would have you killed for sure, so you must think of another way of");
         Main.instance.write("saving the town. You see some things nearby that might help. What do you do?");
+        choice2();
+    }
+    public void choice2() {
         Main.instance.write("(1) Scream, attracting the attention of all the enemies. \n(2) Take them out on by one, quietly");
-        Main.instance.write("(3) Charge in. Strategy is for cowards.\n(4) Burn the village. There isn't anything here for me anyways.");
-        Main.instance.writeGI("");
+        Main.instance.writeGI("(3) Charge in. Strategy is for cowards.\n(4) Burn the village. There isn't anything here for me anyways.");
         String choice2 = getInput();
         if (choice2.equalsIgnoreCase("1")) {
             Main.instance.write("Enemies charge at you seeing you not as an enemy, but as food.");
             Main.instance.write("Your valiant action has lead to allies that were once being attacked to rush to your side.");
-            Main.instance.write("Though they may be weak, their will to fight is strong. They won't last long though, and they're determined to help you.");
+            Main.instance.write("Though they may be weak, their will to fight is strong. They won't last long though,\nand they're determined to help you.");
             character.addAlly(new Allies(5,9,"Weak farmer",1000));
+            character.addAlly(new Allies(5,9,"Weak miner",1000));
+            character.addAlly(new Allies(5,9,"Heavily injured guard",10));
+            enemy.generateEncounter(3, "They're still coming!");
         } else if (choice2.equalsIgnoreCase("2")) {
-            
+            Main.instance.write("You rush forward hiding behind crates and take them out one by one. The first one");
+            Main.instance.write("goes down easily, but the second one notices you as you stab him. He died, but you know");
+            Main.instance.write("that another failure will surely cause for an uproar...");
+            Main.instance.writeGI("Do you think you can continue on your assassination attempts? Y/N");
+            String choice21 = Main.instance.getInput();
+            if (choice21.equalsIgnoreCase("y")) {
+                Random gen = new Random();
+                int chance = gen.nextInt(100)+1;
+                if (chance > 50) {
+                    
+                } else {
+                    
+                }
+            } else if (choice21.equalsIgnoreCase("n")) {
+                Main.instance.write("You feel that continuing will be a fool's deadly mistake, and choose to think");
+                Main.instance.write("of another way to try and destroy the enemy... But how?");
+            }
         } else if (choice2.equalsIgnoreCase("3")) {
             Main.instance.write("\nYou may be a fool, but you are no coward.\n");
             enemy.generateEncounter(5,"Theres another one coming!");
@@ -146,6 +170,8 @@ public class Main extends Canvas implements Runnable{
             character.addToPath("c");
         } else if (choice2.equalsIgnoreCase("4")) {
             
+        } else {
+            Main.instance.write("\nWhat?\n");
         }
         
         shop.generateShop("wandering merchant");
@@ -153,9 +179,11 @@ public class Main extends Canvas implements Runnable{
     }
     public void write(String text1) {
         text.append(text1 + "\n");
+        //sp.getVerticalScrollBar().setValue(sp.getVerticalScrollBar().getMaximum());
     }
     public void writenl(String text1) {
         text.append(text1);
+        //sp.getVerticalScrollBar().setValue(sp.getVerticalScrollBar().getMaximum());
     }
     public final void init(){
         frame.setVisible(true);
@@ -167,6 +195,10 @@ public class Main extends Canvas implements Runnable{
            try{thread.sleep(1);}catch(Exception e){}
        }
        textField.setText("");
+       //sp.getVerticalScrollBar().setValue(sp.getVerticalScrollBar().getMaximum());
+    }
+    public void clear(){
+        text.setText("");
     }
     public String getInput(){
         return userInput;

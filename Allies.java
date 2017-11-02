@@ -42,6 +42,9 @@ public class Allies{
     public void reduceAttach(){
         if (canReduceAttach){
             allyAttach--;
+            if (allyAttach < 1) {
+                Main.instance.write(allyName + " loses trust in you. They've left your party!");
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ public class CharacterInfo{
     private int maxMana;
     private int money;
     private String path;
-    private ArrayList<Allies> allies;
+    private ArrayList<Allies> allies = new ArrayList<Allies>();
 
     public CharacterInfo(){
         // initialise instance variables

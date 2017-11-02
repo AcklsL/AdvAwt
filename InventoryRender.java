@@ -97,7 +97,7 @@ public class InventoryRender{
                         }
                         itemInSlot++;
                     } else {
-                        Main.instance.write("__, ");
+                        Main.instance.writenl("__, ");
                     }
             }
             Main.instance.writenl("]\n");
